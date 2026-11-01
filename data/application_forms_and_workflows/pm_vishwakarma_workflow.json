@@ -2,6 +2,7 @@
   "scheme_name": "PM Vishwakarma Scheme",
   "official_portal": "https://pmvishwakarma.gov.in/",
   "application_mode": "CSC (Common Services Centre) Assisted Registration with Biometric Auth",
+  "turnaround_time_days": "20-30 days",
   "eligible_trades": [
     "Carpenter",
     "Blacksmith",
@@ -22,35 +23,104 @@
     "Armourer",
     "Boat Maker"
   ],
+  "prerequisites": [
+    "Self-declaration of practicing one of 18 recognized traditional crafts",
+    "Minimum age of 18 years at date of registration",
+    "Aadhaar card linked with active mobile number",
+    "Bank account details (for stipend & tool kit voucher)",
+    "No active loan under PMEGP, PM SVANidhi, or Mudra in past 5 years"
+  ],
   "application_steps": [
     {
       "step_number": 1,
-      "step_name": "Mobile & Aadhaar Verification",
-      "action": "Artisan visits nearest CSC. Enters Aadhaar & mobile number. Completes biometric fingerprint scan."
+      "step_name": "Mobile & Aadhaar Biometric Authentication",
+      "portal_action": "Artisan visits nearest CSC. Enters Aadhaar & mobile number. Completes biometric fingerprint scan.",
+      "input_fields": [
+        {
+          "name": "aadhaar_number",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "aadhaar_linked_mobile",
+          "type": "string",
+          "mandatory": true
+        }
+      ],
+      "verification": "Biometric fingerprint authentication via CSC UIDAI terminal."
     },
     {
       "step_number": 2,
-      "step_name": "Artisan Profile & Trade Details",
-      "action": "Select trade from 18 traditional professions. Enter family details and address."
+      "step_name": "Artisan Profile & Trade Selection",
+      "portal_action": "Select artisan craft from 18 traditional professions. Enter family details and workshop address.",
+      "input_fields": [
+        {
+          "name": "traditional_trade_craft",
+          "type": "select",
+          "options": [
+            "Carpenter (Suthar)", "Boat Maker", "Armourer", "Blacksmith (Lohar)",
+            "Hammer and Tool Kit Maker", "Locksmith", "Sculptor (Moortikar/Stone carver)",
+            "Goldsmith (Sonar)", "Potter (Kumhaar)", "Cobbler (Charmakar)", "Mason (Rajmistri)",
+            "Basket/Mat/Broom Maker", "Doll & Toy Maker", "Barber (Naai)", "Garland Maker (Malakaar)",
+            "Washerman (Dhobi)", "Tailor (Darzi)", "Fishing Net Maker"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "business_address",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "panchayat_or_ward_number",
+          "type": "string",
+          "mandatory": true
+        }
+      ],
+      "verification": "Gram Panchayat Head or Ward Member confirms trade engagement."
     },
     {
       "step_number": 3,
       "step_name": "Bank Account & Credit Support Preference",
-      "action": "Enter bank account details for stipend & ₹15,000 tool kit incentive. Choose whether loan is requested (Tranche 1: ₹1 Lakh @ 5%)."
+      "portal_action": "Enter bank details for ₹15,000 tool kit incentive and choose collateral-free loan preference.",
+      "input_fields": [
+        {
+          "name": "bank_account_number",
+          "type": "string",
+          "description": "Savings bank account for stipend & voucher",
+          "mandatory": true
+        },
+        {
+          "name": "ifsc_code",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "loan_tranche_preference",
+          "type": "select",
+          "options": [
+            "₹1,00,000 (Tranche 1 @ 5% interest)",
+            "₹2,00,000 (Tranche 2 upon repayment of Tranche 1)",
+            "Only Skill Training & ₹15,000 Tool Kit (No Loan)"
+          ],
+          "mandatory": true
+        }
+      ],
+      "verification": "PFMS bank validation and credit bureau verification."
     },
     {
       "step_number": 4,
-      "step_name": "Three-Tier Verification Process",
-      "workflow": [
-        "Tier 1: Gram Panchayat Head / Ward Member verification of trade practice",
-        "Tier 2: District Implementation Committee (headed by Collector / MSME DFO)",
-        "Tier 3: National Steering Committee approval -> PM Vishwakarma Digital Certificate & ID Card issued"
-      ]
+      "step_name": "Three-Tier Committee Sanction & ID Card Issuance",
+      "portal_action": "Application passes Tier 1 (Gram Panchayat) -> Tier 2 (District Implementation Committee) -> Tier 3 (National Committee).",
+      "input_fields": [],
+      "verification": "Tier-1 Gram Panchayat verification, Tier-2 District MSME review, Tier-3 National committee sanction.",
+      "output_artifact": "PM Vishwakarma Digital ID Card and Certificate with QR code issued."
     }
   ],
   "benefits_disbursement": {
     "training": "5-7 days basic training with ₹500/day stipend",
     "toolkit": "₹15,000 e-voucher via digital payment / UPI for modern tools",
     "loan": "Up to ₹3,00,000 collateral-free loan at 5% interest (Subsidized by GoI up to 8%)"
-  }
+  },
+  "helpline": "1800-267-7777 / 011-23061500"
 }

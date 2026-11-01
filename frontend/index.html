@@ -1,17 +1,530 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CivicPilot — Government Scheme Discovery & Application Assistant</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-slate-50 text-slate-900 antialiased font-sans selection:bg-brand-500 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicPilot – AI Government Scheme & Public Information Assistant</title>
+  <link rel="stylesheet" href="style.css?v=3.0">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="top-bar">
+      <a href="#" class="brand">
+        <span class="brand-flag">🇮🇳</span>
+        <div class="brand-text">
+          <h1>Civic<span>Pilot</span></h1>
+          <div class="brand-tagline">AI-Powered Government Scheme & Public Information Assistant</div>
+        </div>
+      </a>
+
+      <div class="header-status">
+        <div class="status-badge">
+          <span class="pulse-dot"></span>
+          <span id="backendStatus">Live: Gemini 3.5 + ChromaDB + LangGraph</span>
+        </div>
+
+        <div class="lang-select-wrap">
+          <select id="languageSelect">
+            <option value="Hinglish" selected>🇮🇳 Hinglish</option>
+            <option value="English">🇬🇧 English</option>
+            <option value="Hindi">🇮🇳 हिन्दी (Hindi)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="tab-chat">
+        💬 AI Assistant (Chat)
+      </button>
+      <button class="nav-tab" data-tab="tab-form-filler">
+        📋 Form Auto-Fill (Copy-Paste Helper)
+      </button>
+      <button class="nav-tab" data-tab="tab-explorer">
+        🔍 Scheme Explorer (2,066 Authentic Schemes)
+      </button>
+      <button class="nav-tab" data-tab="tab-docs">
+        📄 Document Readiness & DigiLocker
+      </button>
+      <button class="nav-tab" data-tab="tab-workflows">
+        📝 Application Workflows
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Content Tabs -->
+  <main>
+
+    <!-- Tab 1: AI Assistant (Chat) -->
+    <section id="tab-chat" class="tab-pane active">
+      <div class="chat-container-layout">
+        
+        <!-- Citizen Demographic Profile Sidebar -->
+        <aside class="profile-sidebar">
+          <div class="sidebar-title">
+            👤 Citizen Profile
+          </div>
+          <div class="sidebar-subtitle">
+            Demographic information for deterministic eligibility scoring
+          </div>
+
+          <div class="form-group">
+            <label for="profileName">Full Name</label>
+            <input type="text" id="profileName" class="form-control" placeholder="e.g. Ramesh Kumar">
+          </div>
+
+          <div class="form-group">
+            <label for="profileState">State / UT</label>
+            <select id="profileState" class="form-control">
+              <option value="">Auto-detect from query</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Delhi">Delhi (NCT)</option>
+              <option value="Odisha">Odisha</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Karnataka">Karnataka</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="profileOccupation">Occupation / Category</label>
+            <select id="profileOccupation" class="form-control">
+              <option value="">Auto-detect from query</option>
+              <option value="Farmer (Cultivator / Landowner)">Farmer (Cultivator / Landowner)</option>
+              <option value="Street Vendor / Urban Self-Employed">Street Vendor / Urban Self-Employed</option>
+              <option value="Traditional Artisan / Craftsman">Traditional Artisan / Craftsman (Vishwakarma)</option>
+              <option value="Student / Youth">Student / Youth</option>
+              <option value="Daily Wage Laborer / Construction Worker">Daily Wage / Construction Laborer</option>
+              <option value="Unemployed Youth / Jobseeker">Unemployed Youth / Jobseeker</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="profileLand">Agricultural Land (Acres)</label>
+            <input type="number" id="profileLand" class="form-control" placeholder="e.g. 2.0" step="0.5">
+          </div>
+
+          <div class="form-group">
+            <label for="profileIncome">Annual Household Income (₹)</label>
+            <input type="number" id="profileIncome" class="form-control" placeholder="e.g. 120000" step="10000">
+          </div>
+
+          <div class="quick-profiles">
+            <div class="quick-profiles-title">⚡ Quick Example Scenarios</div>
+            <div class="chip-container">
+              <span class="chip" data-query="Main UP se ek chhota kisan hu, 2 acre kheti ki jamin hai. Kaunsi sarkari yojana milegi aur apply kaise karein?">🌾 UP Farmer (2 Acres)</span>
+              <span class="chip" data-query="Ghar ki chhat par solar panel lagwana hai, bijli bill zero karne ke liye konsi sarkari subsidy scheme hai?">☀️ Solar Rooftop Subsidy</span>
+              <span class="chip" data-query="Main thela lagata hu, dukan badhane ke liye sarkari loan chahiye bina guarantee ke.">🛒 Street Vendor Loan</span>
+              <span class="chip" data-query="Main college me padh raha hu, garib parivar se hu, mujhe higher education ke liye scholarship chahiye.">🎓 Student Scholarship</span>
+              <span class="chip" data-query="Main badhai/carpenter ka kaam karta hu, tool kit aur saste loan ke liye kaunsi yojana hai?">🔨 Vishwakarma Artisan</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <section class="chat-main">
+          <div class="chat-header">
+            <div class="chat-header-title">
+              <span>🤖 CivicPilot AI Consultation</span>
+            </div>
+            <button id="btnClearChat" class="btn-secondary-sm">Clear Chat</button>
+          </div>
+
+          <div id="chatHistory" class="chat-history">
+            <!-- Welcome message -->
+            <div class="message-bubble assistant">
+              <div class="message-avatar">🇮🇳 CivicPilot Assistant</div>
+              <p><strong>Namaste! Main CivicPilot hu.</strong> Aapka digital government scheme assistant.</p>
+              <p style="margin-top:0.4rem;">Main aapki yogyata (eligibility) evaluate karke <strong>2,066 verified official schemes</strong> me se aapke liye sahi yojana dhoondh sakta hu. Aap Hinglish, Hindi ya English me apna sawal puchein!</p>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Apna sawal likhein (e.g. 'Main UP se kisan hu, 2 acre jamin hai, kaunsi yojana milegi?')..." autocomplete="off">
+            <button id="btnSend" class="btn-send">
+              <span>Send</span> ➤
+            </button>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- Tab: Form Auto-Fill (Direct Copy-Paste) -->
+    <section id="tab-form-filler" class="tab-pane">
+      <div class="form-filler-container">
+        
+        <!-- Left: Input & Scheme Selection Panel -->
+        <div class="form-filler-input-panel">
+          <div class="panel-card">
+            <h3 class="panel-heading">📋 Portal Form Copy-Paste Assistant</h3>
+            <p class="panel-subheading">
+              Apni details dalein. CivicPilot sarkari portal ke exact form fields tayyar karega jise aap direct 1-click me copy karke official portal par paste kar sakte hain.
+            </p>
+
+            <div class="form-group" style="margin-top:1rem;">
+              <label for="formFillSchemeSelect"><strong>1. Select Government Scheme / Programme</strong></label>
+              <select id="formFillSchemeSelect" class="form-control" style="font-weight:600;">
+                <option value="pm-kisan">Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)</option>
+                <option value="pm-surya-ghar">PM Surya Ghar: Muft Bijli Yojana (Rooftop Solar)</option>
+                <option value="ayushman-bharat-pmjay">Ayushman Bharat - PMJAY (Health Golden Card)</option>
+                <option value="pm-svanidhi">PM SVANidhi (Street Vendor Loan)</option>
+                <option value="pm-vishwakarma">PM Vishwakarma Yojana (Artisan Grant & Loan)</option>
+                <option value="national-scholarship-portal">National Scholarship Portal (NSP)</option>
+                <option value="pm-awas-yojana">Pradhan Mantri Awas Yojana (PMAY)</option>
+                <option value="__custom__">🔍 Other Scheme (Type custom scheme)</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="customSchemeGroup" style="display:none;">
+              <label for="customSchemeInput">Type Scheme Name / Keyword</label>
+              <input type="text" id="customSchemeInput" class="form-control" placeholder="e.g. Ladli Behna, Sukanya Samriddhi, Mudra Loan...">
+            </div>
+
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;">
+                <label for="formFillDetailsInput" style="margin-bottom:0;"><strong>2. Citizen Details / Raw Notes</strong></label>
+                <button type="button" id="btnSyncProfile" class="btn-text-action">⚡ Fill from Profile Sidebar</button>
+              </div>
+              <textarea id="formFillDetailsInput" class="form-control" rows="5" placeholder="Apni details likhein ya niche diye gaye sample chips par click karein..."></textarea>
+            </div>
+
+            <!-- Quick Template Chips -->
+            <div style="margin-bottom:1.25rem;">
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-bottom:0.4rem;">⚡ LOAD SAMPLE CITIZEN DETAILS:</div>
+              <div class="chip-container">
+                <span class="chip-sample" data-scheme="pm-kisan" data-text="Mera naam Ramesh Kumar Verma hai, UP Varanasi se hu. Mobile number 9876543210. 2 acre kheti ki jamin hai Khasra no 452/1, Khata no 124. Bank of Baroda account 123456789012 IFSC BARB0VARANA. OBC category.">🌾 UP Farmer (PM-KISAN)</span>
+                <span class="chip-sample" data-scheme="pm-surya-ghar" data-text="Mera naam Priya Sharma hai, New Delhi se hu. Electricity Consumer ID DL9876543210, Discom BSES Yamuna. Mobile 9811223344, email priya@gmail.com. SBI Account 9988776655 IFSC SBIN0000123. 2kW rooftop solar lagwana hai.">☀️ Delhi Solar Rooftop</span>
+                <span class="chip-sample" data-scheme="pm-vishwakarma" data-text="Mera naam Dinesh Kumar Vishwakarma hai, Bhopal MP se hu. Main badhai (carpenter) ka kaam karta hu. Aadhaar 234567891234, mobile 9755443322. PNB bank account 4433221100 IFSC PUNB0014200. Tool kit grant aur sasta loan chahiye.">🔨 MP Artisan (Vishwakarma)</span>
+                <span class="chip-sample" data-scheme="pm-svanidhi" data-text="Mera naam Mohammad Aslam hai, Patna Bihar se hu. Main road side thela lagata hu street food ka. Mobile 9431223344. Canara Bank account 3322110099 IFSC CNRB0001245. 10,000 ka loan chahiye dukan ke liye.">🛒 Street Vendor (Patna)</span>
+              </div>
+            </div>
+
+            <button id="btnGenerateForm" class="btn-generate-form">
+              <span>📋 Generate Copy-Paste Form Fields</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Structured Form Output Sheet -->
+        <div class="form-filler-output-panel">
+          <div id="formOutputPlaceholder" class="form-output-placeholder">
+            <div style="font-size:3.5rem; margin-bottom:0.8rem;">📋</div>
+            <h4 style="font-weight:700; color:var(--navy); font-size:1.15rem;">Official Portal Form Ready for Direct Copy-Paste</h4>
+            <p style="font-size:0.85rem; color:var(--text-muted); max-width:440px; margin:0.5rem auto 1rem; line-height:1.5;">
+              Bayein taraf scheme select karein aur details daalkar <strong>"Generate Copy-Paste Form Fields"</strong> click karein. Official portal ke har field ke aage direct copy button milega taaki aap sarkari portal par bina galti ke paste kar sakein.
+            </p>
+          </div>
+
+          <div id="formOutputContent" style="display:none;" class="form-output-card">
+            <!-- Dynamic Content rendered via JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tab 2: Scheme Explorer -->
+    <section id="tab-explorer" class="tab-pane">
+      <div class="explorer-header">
+        <div class="search-input-group">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="explorerSearchInput" placeholder="Search 2,066 authentic schemes by name, keyword or benefit (e.g. solar, kisan, awas, pension)...">
+        </div>
+        <select id="explorerStateFilter" class="filter-select">
+          <option value="">All States & Central</option>
+          <option value="Uttar Pradesh">Uttar Pradesh</option>
+          <option value="Bihar">Bihar</option>
+          <option value="Madhya Pradesh">Madhya Pradesh</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Rajasthan">Rajasthan</option>
+          <option value="Gujarat">Gujarat</option>
+          <option value="Delhi">Delhi</option>
+        </select>
+        <select id="explorerCategoryFilter" class="filter-select">
+          <option value="">All Categories</option>
+          <option value="Agriculture">Agriculture & Farmers</option>
+          <option value="Business">Business & MSME</option>
+          <option value="Education">Education & Scholarships</option>
+          <option value="Health">Healthcare & Wellness</option>
+          <option value="Housing">Housing & Shelter</option>
+          <option value="Social">Social Welfare & Pensions</option>
+        </select>
+      </div>
+
+      <div id="schemesGrid" class="schemes-grid">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- Tab 3: Document Readiness & DigiLocker Eligibility Decision Engine -->
+    <section id="tab-docs" class="tab-pane">
+      
+      <!-- DigiLocker 1-Click Verification Banner -->
+      <div class="digilocker-banner">
+        <div class="digilocker-banner-left">
+          <div class="digilocker-icon-badge">🇮🇳 DigiLocker</div>
+          <div>
+            <h4 class="digilocker-title">Official DigiLocker Integration & Zero-Rejection Eligibility Engine</h4>
+            <p class="digilocker-desc">
+              Aapke paas jo documents hain unhe select karein ya <strong>"1-Click Sync with DigiLocker"</strong> par click karein. CivicPilot 2,066 authentic sarkari yojanaon mein se aapke liye 100% Ready schemes aur missing document action plan nikalega.
+            </p>
+          </div>
+        </div>
+        <div class="digilocker-banner-actions">
+          <button type="button" id="btnDigiLockerSync" class="btn-digilocker-sync">
+            ⚡ 1-Click Sync with DigiLocker
+          </button>
+          <button type="button" id="btnResetDocs" class="btn-reset-docs">
+            ↺ Reset All
+          </button>
+        </div>
+      </div>
+
+      <!-- Top Section: Documents Catalog & Conclusive Scoreboard -->
+      <div class="doc-readiness-layout">
+        
+        <!-- Left: Official Documents Catalog -->
+        <div class="doc-catalog-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+            <div>
+              <h3 style="font-size:1.05rem; color:var(--navy); font-weight:700; margin:0;">📑 Official Government Documents Catalog</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.2rem;">
+                Select documents you currently hold (or verify via DigiLocker):
+              </p>
+            </div>
+            <span id="digiLockerBadge" class="badge-digilocker-verified" style="display:none;">
+              🛡️ DigiLocker Connected
+            </span>
+          </div>
+
+          <div id="docsChecklistContainer" class="doc-list-group">
+            <!-- Rendered dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Right: Conclusive Readiness Dashboard -->
+        <div class="score-panel">
+          <h4 style="font-size:0.95rem; font-weight:700; color:var(--navy); margin:0;">Document Readiness Score</h4>
+          
+          <div class="score-circle" id="scoreCircle">
+            <div class="score-circle-inner">
+              <span class="score-val" id="scoreVal">0%</span>
+              <span class="score-label">Ready</span>
+            </div>
+          </div>
+          
+          <div class="readiness-impact-metrics">
+            <div class="impact-pill ready-pill" id="impactReadyPill">
+              <span class="impact-num" id="statReadyCount">0</span>
+              <span class="impact-lbl">Schemes 100% Ready</span>
+            </div>
+            <div class="impact-pill near-pill" id="impactNearPill">
+              <span class="impact-num" id="statNearCount">0</span>
+              <span class="impact-lbl">Schemes (1 Doc Away)</span>
+            </div>
+          </div>
+
+          <p id="scoreSummaryText" style="font-size:0.8rem; color:var(--text-muted); margin-top:0.75rem; line-height:1.45;">
+            Select documents on the left to evaluate your application readiness.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Section 2: Targeted Scheme Document Audit -->
+      <div class="target-audit-section">
+        <div class="target-audit-header">
+          <div>
+            <h4 style="font-size:1.05rem; font-weight:800; color:var(--navy); margin:0;">
+              🎯 Targeted Scheme Document Audit (Rejection-Proof Verification)
+            </h4>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">
+              Kisi specific scheme ke liye apne documents audit karein taaki official portal par application reject na ho:
+            </p>
+          </div>
+          <select id="targetSchemeAuditSelect" class="filter-select" style="min-width:280px;">
+            <option value="pm-kisan">🌾 Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)</option>
+            <option value="pm-surya-ghar">☀️ PM Surya Ghar: Muft Bijli Yojana</option>
+            <option value="ayushman-bharat-pmjay">🏥 Ayushman Bharat PM-JAY</option>
+            <option value="national-scholarship-portal">🎓 National Scholarship Portal (NSP)</option>
+            <option value="pm-svanidhi">🛒 PM SVANidhi (Street Vendor Loan)</option>
+            <option value="pm-vishwakarma">🔨 PM Vishwakarma Yojana</option>
+            <option value="pmay-urban">🏠 Pradhan Mantri Awas Yojana (PMAY)</option>
+          </select>
+        </div>
+
+        <div id="targetAuditContent" class="target-audit-body">
+          <!-- Rendered dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Section 3: Conclusive Scheme Outcomes (2 Columns) -->
+      <div class="conclusive-outcomes-grid">
+        
+        <!-- Column 1: Schemes Ready to Apply Immediately -->
+        <div class="outcome-card">
+          <div class="outcome-card-header">
+            <h4 class="outcome-title" style="color:#047857;">
+              <span>🎉 100% Ready To Apply Right Now (0 Missing Documents)</span>
+            </h4>
+            <span id="readySchemesCountBadge" class="badge-count">0 Schemes</span>
+          </div>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.75rem;">
+            Aapke selected documents in yojanaon ke sabhi mandatory rules ko poora karte hain:
+          </p>
+          <div id="readySchemesContainer" class="outcome-list">
+            <!-- Dynamic schemes list -->
+          </div>
+        </div>
+
+        <!-- Column 2: High-Impact Schemes Just 1 Document Away -->
+        <div class="outcome-card">
+          <div class="outcome-card-header">
+            <h4 class="outcome-title" style="color:#b45309;">
+              <span>⚡ High-Value Schemes (Just 1 Missing Document Away)</span>
+            </h4>
+            <span id="nearSchemesCountBadge" class="badge-count" style="background:#fef3c7; color:#b45309;">0 Schemes</span>
+          </div>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.75rem;">
+            Sirf 1 certificate banwakar aap in badi yojanaon ke labh unlock kar sakte hain:
+          </p>
+          <div id="nearSchemesContainer" class="outcome-list">
+            <!-- Dynamic one-away list -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 4: Missing Document Issuance & DigiLocker Portal Center -->
+      <div class="missing-docs-action-center" id="missingDocsActionCenter">
+        <h4 style="font-size:1.05rem; font-weight:800; color:var(--navy); margin-bottom:0.25rem;">
+          🏛️ Missing Documents Issuance Directory (Kahan Se Aur Kaise Banega?)
+        </h4>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">
+          Jo documents aapke paas abhi nahi hain, unhe direct official sarkari portal ya DigiLocker se prapt karein:
+        </p>
+        <div id="missingDocsGrid" class="missing-docs-grid">
+          <!-- Dynamic action cards -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Tab 4: Application Workflows -->
+    <section id="tab-workflows" class="tab-pane">
+      <div class="workflow-view">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-bottom:1px solid var(--border); padding-bottom:1rem;">
+          <div>
+            <h3 style="font-size:1.1rem; font-weight:700; color:var(--navy);">Official Step-by-Step Application Procedures</h3>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Verified operational guidelines and portal walkthroughs</p>
+          </div>
+          <select id="workflowSchemeSelect" class="filter-select">
+            <option value="pm-kisan">Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)</option>
+            <option value="pm-surya-ghar">PM Surya Ghar: Muft Bijli Yojana</option>
+            <option value="ayushman-bharat-pmjay">Ayushman Bharat - PMJAY</option>
+            <option value="pm-svanidhi">PM SVANidhi (Street Vendor Loan)</option>
+            <option value="pm-vishwakarma">PM Vishwakarma Yojana</option>
+            <option value="pmay-urban">Pradhan Mantri Awas Yojana (PMAY - Gramin & Urban)</option>
+            <option value="national-scholarship-portal">National Scholarship Portal (NSP)</option>
+          </select>
+        </div>
+
+        <div id="workflowDetailsArea" style="margin-top:1.25rem;">
+          <!-- Rendered dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- DigiLocker OAuth & Consent Verification Modal -->
+  <div id="digilockerModal" class="dl-modal-overlay" style="display:none;">
+    <div class="dl-modal-box">
+      <div class="dl-modal-header">
+        <div class="dl-header-brand">
+          <div class="dl-brand-emblem">🇮🇳</div>
+          <div>
+            <h4 class="dl-modal-title">DigiLocker / MeriPehchan</h4>
+            <div class="dl-modal-sub">National Digital Identity & Document Verification Gateway (MeitY)</div>
+          </div>
+        </div>
+        <button type="button" class="dl-close-btn" id="btnDlModalClose">&times;</button>
+      </div>
+
+      <div class="dl-modal-body">
+        <div class="dl-stepper-view" id="dlStepAuth">
+          <div class="dl-banner-info">
+            🔒 <strong>Consent-Based Verification:</strong> CivicPilot is requesting access to verify your issued documents against official Government registries.
+          </div>
+
+          <div class="form-group" style="margin-top:1rem;">
+            <label style="font-size:0.85rem; font-weight:700; color:var(--navy);">Enter 12-Digit Aadhaar or Registered Mobile Number</label>
+            <input type="text" id="dlAadhaarInput" class="form-control" placeholder="e.g. 2345 6789 1234 or 9876543210" value="2345 6789 1234">
+          </div>
+
+          <div class="form-group">
+            <label style="font-size:0.85rem; font-weight:700; color:var(--navy);">6-Digit Security PIN / OTP</label>
+            <div style="display:flex; gap:0.5rem;">
+              <input type="password" id="dlOtpInput" class="form-control" placeholder="Enter 6-digit OTP" value="123456" maxlength="6">
+              <button type="button" class="btn-resend-otp" id="btnResendOtp">Resend OTP</button>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.3rem;">
+              ⚡ Sandbox/Demo: Pre-filled with standard test OTP <code>123456</code>
+            </div>
+          </div>
+
+          <div class="dl-requested-scope">
+            <div style="font-size:0.78rem; font-weight:700; color:var(--navy); margin-bottom:0.4rem;">
+              DOCUMENTS REQUESTED UNDER SCOPE (<code>files.read</code>):
+            </div>
+            <ul class="dl-scope-list">
+              <li>✅ <strong>UIDAI Aadhaar Card</strong> (e-Aadhaar XML with digital signature)</li>
+              <li>✅ <strong>Department of Food & Public Distribution</strong> (NFSA Ration Card)</li>
+              <li>✅ <strong>State Examination Board / CBSE</strong> (Class 10/12 Marksheet)</li>
+              <li>✅ <strong>NPCI / Public Sector Bank</strong> (Aadhaar DBT Seeding Status)</li>
+            </ul>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.25rem;">
+            <button type="button" class="btn-card-secondary" id="btnDlCancel">Cancel</button>
+            <button type="button" class="btn-digilocker-sync" id="btnDlAuthenticate">
+              <span>🛡️ Authorize & Pull Documents</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dl-loading-view" id="dlStepLoading" style="display:none; text-align:center; padding:2rem 1rem;">
+          <div class="typing-loader" style="margin:0 auto 1rem;">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+          <h4 style="color:var(--navy); font-weight:700;">Connecting to DigiLocker National Gateway...</h4>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.3rem;" id="dlLoadingStatusText">
+            Validating cryptographic signatures from UIDAI & State Issuers...
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🇮🇳 <strong>CivicPilot</strong> — Built for Theme 1: <em>Civic Pulse, Digital Governance & Public Information</em> | Grounded exclusively on verified data from <strong>myScheme.gov.in</strong> & National Portals.</p>
+  </footer>
+
+  <script src="app.js?v=3.0"></script>
+</body>
 </html>
 

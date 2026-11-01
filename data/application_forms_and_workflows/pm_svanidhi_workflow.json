@@ -1,6 +1,8 @@
 {
   "scheme_name": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)",
   "official_portal": "https://pmsvanidhi.mohua.gov.in/",
+  "application_mode": "Online Citizen Portal or Lending Institution / CSC Assisted",
+  "turnaround_time_days": "7-15 days",
   "target_beneficiaries": "Urban, semi-urban, and rural street vendors vending in urban areas.",
   "loan_slabs": {
     "first_loan": "₹10,000 (1 year repayment tenure)",
@@ -9,26 +11,103 @@
   },
   "interest_subsidy": "7% interest subsidy credited directly to vendor's bank account quarterly.",
   "digital_cashback": "Up to ₹1,200 per year (₹100/month) for receiving payments via QR code.",
-  "step_by_step_workflow": [
+  "prerequisites": [
+    "Certificate of Vending (CoV) / Identity Card or LoR (Letter of Recommendation) from ULB",
+    "Aadhaar card linked with active mobile number",
+    "Savings Bank Account with IFSC code for loan credit",
+    "Smartphone capable of UPI QR code operations"
+  ],
+  "application_steps": [
     {
       "step_number": 1,
-      "step_name": "Vendor Vending Status Check",
-      "options": [
-        "Category A: Vendors possessing Certificate of Vending / ID Card issued by ULB",
-        "Category B: Vendors identified in ULB survey but not issued ID card",
-        "Category C: Vendors left out of ULB survey (Requires Letter of Recommendation - LoR from ULB/Town Vending Committee)",
-        "Category D: Vendors from surrounding rural/peri-urban areas"
-      ]
+      "step_name": "Vendor Vending Status & Category Verification",
+      "portal_action": "Navigate to pmsvanidhi.mohua.gov.in -> 'Apply for Loan' -> Check Vendor Status",
+      "input_fields": [
+        {
+          "name": "vendor_category",
+          "type": "select",
+          "options": [
+            "Category A: Possessing Vending Certificate / ID Card",
+            "Category B: Identified in ULB survey without ID card",
+            "Category C: Possessing Letter of Recommendation (LoR)",
+            "Category D: Peri-urban/Rural vendor vending in town"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "vending_card_number_or_lor",
+          "type": "string",
+          "description": "Certificate number or Town Vending Committee LoR number",
+          "mandatory": true
+        },
+        {
+          "name": "urban_local_body",
+          "type": "select",
+          "description": "Municipality / Municipal Corporation (Nagar Nigam / Palika)",
+          "mandatory": true
+        }
+      ],
+      "verification": "ULB database validates vending status against municipal survey."
     },
     {
       "step_number": 2,
-      "step_name": "Loan Application Submission",
-      "portal_action": "Log in with Aadhaar OTP on PM SVANidhi portal or through Lending Institution / CSC. Select preferred lending bank."
+      "step_name": "Aadhaar e-KYC & Loan Application",
+      "portal_action": "Log in with Aadhaar OTP on PM SVANidhi portal or through Lending Institution / CSC.",
+      "input_fields": [
+        {
+          "name": "aadhaar_number",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "mobile_number",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "requested_loan_tranche",
+          "type": "select",
+          "options": ["1st Loan: ₹10,000", "2nd Loan: ₹20,000", "3rd Loan: ₹50,000"],
+          "mandatory": true
+        },
+        {
+          "name": "preferred_lending_bank",
+          "type": "select",
+          "description": "Preferred PSU Bank, Regional Rural Bank, or MFI",
+          "mandatory": true
+        },
+        {
+          "name": "bank_account_number",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "ifsc_code",
+          "type": "string",
+          "mandatory": true
+        }
+      ],
+      "verification": "Aadhaar OTP authentication and credit agency verification."
     },
     {
       "step_number": 3,
       "step_name": "Disbursement & Digital QR Onboarding",
-      "action": "Bank sanctions and disburses loan. UPI QR code (BHIM/Paytm/PhonePe/GPay) linked for cashback."
+      "portal_action": "Bank sanctions and disburses loan. UPI QR code (BHIM/Paytm/PhonePe/GPay) linked for cashback.",
+      "input_fields": [
+        {
+          "name": "upi_virtual_payment_address",
+          "type": "string",
+          "description": "Merchant UPI VPA (e.g. 9876543210@upi)",
+          "mandatory": true
+        },
+        {
+          "name": "upi_qr_provider",
+          "type": "select",
+          "options": ["BHIM UPI", "Paytm", "PhonePe", "Google Pay", "Bank QR"],
+          "mandatory": true
+        }
+      ],
+      "output_artifact": "Sanction letter and ₹10,000 direct credit into bank account with ₹1,200/year cashback activation."
     }
   ],
   "helpline": "1800-11-1979"

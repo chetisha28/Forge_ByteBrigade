@@ -1,31 +1,136 @@
 {
   "scheme_name": "PM Surya Ghar: Muft Bijli Yojana (Rooftop Solar)",
   "official_portal": "https://pmsuryaghar.gov.in/",
+  "application_mode": "Online Citizen Portal / National Rooftop Solar Portal",
+  "turnaround_time_days": "30-45 days",
   "subsidy_structure": {
     "1_kw": "₹30,000 direct DBT subsidy",
     "2_kw": "₹60,000 direct DBT subsidy",
     "3_kw_and_above": "₹78,000 maximum central subsidy"
   },
-  "step_by_step_workflow": [
+  "prerequisites": [
+    "Electricity Consumer Account Number with latest paid electricity bill",
+    "Ownership of residential roof with shadow-free area (min 10 sq.m / 100 sq.ft per kW)",
+    "Aadhaar card of the electricity consumer",
+    "Active savings bank account with cancelled cheque for DBT subsidy release"
+  ],
+  "application_steps": [
     {
       "step_number": 1,
-      "step_name": "Consumer Registration",
-      "portal_action": "Select State -> Select Electricity Distribution Company (DISCOM) -> Enter Consumer Account Number -> Enter Mobile Number & Email"
+      "step_name": "Consumer Registration & DISCOM Linkage",
+      "portal_action": "Navigate to pmsuryaghar.gov.in -> 'Apply for Rooftop Solar' -> Select State & DISCOM",
+      "input_fields": [
+        {
+          "name": "state",
+          "type": "select",
+          "description": "State where consumer connection is located",
+          "mandatory": true
+        },
+        {
+          "name": "electricity_distribution_company",
+          "type": "select",
+          "description": "Local DISCOM (e.g. BSES, Tata Power, UPPCL, TANGEDCO)",
+          "mandatory": true
+        },
+        {
+          "name": "consumer_account_number",
+          "type": "string",
+          "description": "CA Number from electricity bill",
+          "mandatory": true
+        },
+        {
+          "name": "mobile_number",
+          "type": "string",
+          "description": "Mobile number for OTP authentication",
+          "mandatory": true
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "description": "Email address for official updates",
+          "mandatory": false
+        }
+      ],
+      "verification": "SMS OTP sent to mobile number. Profile created with DISCOM consumer validation."
     },
     {
       "step_number": 2,
       "step_name": "Feasibility Approval & Vendor Selection",
-      "portal_action": "Apply for Rooftop Solar installation. DISCOM checks technical feasibility of grid transformer. Once approved, choose registered vendor from portal."
+      "portal_action": "Submit online rooftop solar application. DISCOM approves transformer load feasibility within 15 days.",
+      "input_fields": [
+        {
+          "name": "proposed_solar_capacity_kw",
+          "type": "select",
+          "options": ["1 kW", "2 kW", "3 kW", "Above 3 kW"],
+          "description": "Proposed rooftop plant capacity",
+          "mandatory": true
+        },
+        {
+          "name": "sanctioned_load_kw",
+          "type": "string",
+          "description": "Existing connected load from bill",
+          "mandatory": true
+        },
+        {
+          "name": "empaneled_vendor",
+          "type": "select",
+          "description": "Select MNRE/DISCOM registered solar vendor",
+          "mandatory": true
+        }
+      ],
+      "verification": "DISCOM technical feasibility review. Applicant signs agreement with registered vendor."
     },
     {
       "step_number": 3,
       "step_name": "Installation & Net Meter Commissioning",
-      "portal_action": "Vendor installs solar modules and inverter. Apply for net meter. DISCOM inspects installation and commissions bidirectional net meter."
+      "portal_action": "Vendor installs solar modules and grid-tie inverter. Apply for bidirectional net meter.",
+      "input_fields": [
+        {
+          "name": "almm_module_serial_numbers",
+          "type": "string",
+          "description": "Approved ALMM Solar PV Module serial numbers",
+          "mandatory": true
+        },
+        {
+          "name": "inverter_make_and_capacity",
+          "type": "string",
+          "description": "Grid-tie inverter specifications",
+          "mandatory": true
+        },
+        {
+          "name": "installation_completion_certificate",
+          "type": "file",
+          "description": "Joint inspection certificate signed by vendor & consumer",
+          "mandatory": true
+        }
+      ],
+      "verification": "DISCOM junior engineer conducts physical inspection and commissions bidirectional net meter."
     },
     {
       "step_number": 4,
-      "step_name": "Subsidy Claim Submission",
-      "portal_action": "Submit bank details and upload cancelled cheque on portal. Central Government releases subsidy directly to bank account within 30 days."
+      "step_name": "Subsidy Claim & DBT Bank Credit",
+      "portal_action": "Upload bank details and cancelled cheque. National Portal releases DBT subsidy directly to bank.",
+      "input_fields": [
+        {
+          "name": "bank_account_number",
+          "type": "string",
+          "description": "Aadhaar seeded savings bank account",
+          "mandatory": true
+        },
+        {
+          "name": "ifsc_code",
+          "type": "string",
+          "description": "Bank Branch IFSC Code",
+          "mandatory": true
+        },
+        {
+          "name": "cancelled_cheque_or_passbook_copy",
+          "type": "file",
+          "description": "PDF/JPG copy under 500 KB",
+          "mandatory": true
+        }
+      ],
+      "output_artifact": "DBT Subsidy Reference Number generated; ₹30,000–₹78,000 credited within 30 days of commissioning."
     }
   ],
   "helpline": "15555"
