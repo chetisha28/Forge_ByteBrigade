@@ -1,0 +1,197 @@
+{
+  "scheme_name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+  "official_portal": "https://pmkisan.gov.in/",
+  "application_mode": "Online (Self-Registration) or CSC (Common Service Centre)",
+  "target_beneficiary": "Small & Marginal Farmers owning cultivable land",
+  "financial_benefit": "₹6,000 annually in 3 installments of ₹2,000 directly to Aadhaar-seeded bank account",
+  "prerequisites": [
+    "Aadhaar Number linked with active mobile number for OTP",
+    "Cultivable land record (Khasra / Khatauni) in applicant's name",
+    "DBT-enabled Bank Account seeded with NPCI"
+  ],
+  "application_steps": [
+    {
+      "step_number": 1,
+      "step_name": "Farmer Registration & Aadhaar Authentication",
+      "portal_action": "Navigate to Farmers Corner -> 'New Farmer Registration'",
+      "input_fields": [
+        {
+          "name": "farmer_type",
+          "type": "select",
+          "options": [
+            "Rural Farmer Registration",
+            "Urban Farmer Registration"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "aadhaar_number",
+          "type": "string",
+          "pattern": "^[2-9]{1}[0-9]{11}$",
+          "description": "12 digit UID",
+          "mandatory": true
+        },
+        {
+          "name": "mobile_number",
+          "type": "string",
+          "pattern": "^[6-9][0-9]{9}$",
+          "description": "Aadhaar linked 10-digit mobile",
+          "mandatory": true
+        },
+        {
+          "name": "state",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "captcha",
+          "type": "string",
+          "mandatory": true
+        }
+      ],
+      "verification": "Aadhaar OTP is dispatched to citizen's mobile. Citizen enters 6-digit OTP to verify identity."
+    },
+    {
+      "step_number": 2,
+      "step_name": "Personal & Demographic Details",
+      "portal_action": "Pre-filled from UIDAI database with required manual additions",
+      "input_fields": [
+        {
+          "name": "district",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "sub_district_tehsil",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "block",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "village",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "farmer_category",
+          "type": "select",
+          "options": [
+            "General",
+            "OBC",
+            "SC",
+            "ST"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "farmer_type",
+          "type": "select",
+          "options": [
+            "Small (1-2 Ha)",
+            "Marginal (<1 Ha)",
+            "Others (>2 Ha)"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "pin_code",
+          "type": "string",
+          "pattern": "^[1-9][0-9]{5}$",
+          "mandatory": true
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "step_name": "Land Record Seeding (Bhoomi / Bhulekh Details)",
+      "portal_action": "Enter revenue land ownership details",
+      "input_fields": [
+        {
+          "name": "ownership_type",
+          "type": "radio",
+          "options": [
+            "Single",
+            "Joint"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "survey_khata_number",
+          "type": "string",
+          "description": "Khata/Khewat number from Land Record",
+          "mandatory": true
+        },
+        {
+          "name": "khasra_dag_number",
+          "type": "string",
+          "description": "Khasra / Plot Number",
+          "mandatory": true
+        },
+        {
+          "name": "area_in_hectare",
+          "type": "float",
+          "mandatory": true
+        },
+        {
+          "name": "land_transfer_status",
+          "type": "select",
+          "options": [
+            "Before 01-02-2019",
+            "After 01-02-2019"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "land_transfer_details",
+          "type": "select",
+          "options": [
+            "Death of Husband",
+            "Death of Father",
+            "Ancestral",
+            "Purchase",
+            "Gift",
+            "Pattadar"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "land_record_pdf",
+          "type": "file",
+          "allowed_format": "PDF",
+          "max_size_kb": 200,
+          "mandatory": true
+        }
+      ]
+    },
+    {
+      "step_number": 4,
+      "step_name": "e-KYC & Final Declaration",
+      "portal_action": "Undertaking of exclusion criteria and biometric/OTP eKYC",
+      "input_fields": [
+        {
+          "name": "income_tax_exclusion_declaration",
+          "type": "checkbox",
+          "mandatory": true
+        },
+        {
+          "name": "constitutional_post_exclusion_declaration",
+          "type": "checkbox",
+          "mandatory": true
+        }
+      ],
+      "output_artifact": "Farmer Application Reference ID (e.g. UP123456789) generated for status tracking."
+    }
+  ],
+  "approval_and_redressal_flow": {
+    "level_1": "Verification by Patwari / Lekhpal (Village level)",
+    "level_2": "Sub-Divisional Nodal Officer (Tehsildar / SDO)",
+    "level_3": "District Agriculture Officer (DAO)",
+    "level_4": "State Nodal Officer -> PFMS validation -> Installment Release",
+    "tracking_url": "https://pmkisan.gov.in/BeneficiaryStatus_New.aspx",
+    "helpline": "155261 / 011-24300606"
+  }
+}

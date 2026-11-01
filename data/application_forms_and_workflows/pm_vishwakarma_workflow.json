@@ -1,0 +1,56 @@
+{
+  "scheme_name": "PM Vishwakarma Scheme",
+  "official_portal": "https://pmvishwakarma.gov.in/",
+  "application_mode": "CSC (Common Services Centre) Assisted Registration with Biometric Auth",
+  "eligible_trades": [
+    "Carpenter",
+    "Blacksmith",
+    "Goldsmith",
+    "Potter",
+    "Sculptor",
+    "Cobbler",
+    "Mason",
+    "Basket Maker",
+    "Doll Maker",
+    "Barber",
+    "Garland maker",
+    "Washerman",
+    "Tailor",
+    "Fishing Net Maker",
+    "Locksmith",
+    "Tool Kit Maker",
+    "Armourer",
+    "Boat Maker"
+  ],
+  "application_steps": [
+    {
+      "step_number": 1,
+      "step_name": "Mobile & Aadhaar Verification",
+      "action": "Artisan visits nearest CSC. Enters Aadhaar & mobile number. Completes biometric fingerprint scan."
+    },
+    {
+      "step_number": 2,
+      "step_name": "Artisan Profile & Trade Details",
+      "action": "Select trade from 18 traditional professions. Enter family details and address."
+    },
+    {
+      "step_number": 3,
+      "step_name": "Bank Account & Credit Support Preference",
+      "action": "Enter bank account details for stipend & ₹15,000 tool kit incentive. Choose whether loan is requested (Tranche 1: ₹1 Lakh @ 5%)."
+    },
+    {
+      "step_number": 4,
+      "step_name": "Three-Tier Verification Process",
+      "workflow": [
+        "Tier 1: Gram Panchayat Head / Ward Member verification of trade practice",
+        "Tier 2: District Implementation Committee (headed by Collector / MSME DFO)",
+        "Tier 3: National Steering Committee approval -> PM Vishwakarma Digital Certificate & ID Card issued"
+      ]
+    }
+  ],
+  "benefits_disbursement": {
+    "training": "5-7 days basic training with ₹500/day stipend",
+    "toolkit": "₹15,000 e-voucher via digital payment / UPI for modern tools",
+    "loan": "Up to ₹3,00,000 collateral-free loan at 5% interest (Subsidized by GoI up to 8%)"
+  }
+}

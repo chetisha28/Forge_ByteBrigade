@@ -1,0 +1,32 @@
+{
+  "scheme_name": "PM Surya Ghar: Muft Bijli Yojana (Rooftop Solar)",
+  "official_portal": "https://pmsuryaghar.gov.in/",
+  "subsidy_structure": {
+    "1_kw": "₹30,000 direct DBT subsidy",
+    "2_kw": "₹60,000 direct DBT subsidy",
+    "3_kw_and_above": "₹78,000 maximum central subsidy"
+  },
+  "step_by_step_workflow": [
+    {
+      "step_number": 1,
+      "step_name": "Consumer Registration",
+      "portal_action": "Select State -> Select Electricity Distribution Company (DISCOM) -> Enter Consumer Account Number -> Enter Mobile Number & Email"
+    },
+    {
+      "step_number": 2,
+      "step_name": "Feasibility Approval & Vendor Selection",
+      "portal_action": "Apply for Rooftop Solar installation. DISCOM checks technical feasibility of grid transformer. Once approved, choose registered vendor from portal."
+    },
+    {
+      "step_number": 3,
+      "step_name": "Installation & Net Meter Commissioning",
+      "portal_action": "Vendor installs solar modules and inverter. Apply for net meter. DISCOM inspects installation and commissions bidirectional net meter."
+    },
+    {
+      "step_number": 4,
+      "step_name": "Subsidy Claim Submission",
+      "portal_action": "Submit bank details and upload cancelled cheque on portal. Central Government releases subsidy directly to bank account within 30 days."
+    }
+  ],
+  "helpline": "15555"
+}

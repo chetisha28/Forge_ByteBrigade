@@ -1,0 +1,111 @@
+{
+  "scheme_name": "National Scholarship Portal (NSP - scholarships.gov.in)",
+  "official_portal": "https://scholarships.gov.in/",
+  "target_beneficiaries": "Pre-Matric, Post-Matric, Top-Class, and Merit-cum-Means students from minority, SC, ST, OBC, and EWS backgrounds.",
+  "application_steps": [
+    {
+      "step_number": 1,
+      "step_name": "One Time Registration (OTR)",
+      "portal_action": "Generate unique 14-digit OTR number via Aadhaar / Face Auth on NSP OTR App",
+      "input_fields": [
+        "Aadhaar Number",
+        "Active Mobile Number",
+        "Parent/Guardian Aadhaar (for minors)"
+      ]
+    },
+    {
+      "step_number": 2,
+      "step_name": "Student Profile & Academic Form Filling",
+      "portal_action": "Log in with OTR and fill application form",
+      "input_fields": [
+        {
+          "name": "domicile_state",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "scholarship_category",
+          "type": "select",
+          "options": [
+            "Pre-Matric (Class 1-10)",
+            "Post-Matric / Top-Class / MCM (Class 11, 12, UG, PG, Ph.D.)"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "institution_state_district",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "institution_name",
+          "type": "select",
+          "description": "Must have valid AISHE / UDISE code",
+          "mandatory": true
+        },
+        {
+          "name": "present_class_course",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "present_class_year",
+          "type": "select",
+          "mandatory": true
+        },
+        {
+          "name": "mode_of_study",
+          "type": "radio",
+          "options": [
+            "Regular / Full Time",
+            "Distance / Part Time"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "previous_passing_percentage",
+          "type": "float",
+          "mandatory": true
+        },
+        {
+          "name": "family_annual_income",
+          "type": "number",
+          "mandatory": true
+        },
+        {
+          "name": "day_scholar_or_hosteller",
+          "type": "radio",
+          "options": [
+            "Day Scholar",
+            "Hosteller"
+          ],
+          "mandatory": true
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "step_name": "Scheme Selection & Document Upload",
+      "portal_action": "System dynamically presents eligible central/state schemes based on student profile",
+      "documents_to_upload": [
+        "Bonafide Student Certificate signed by School Principal / Dean",
+        "Income Certificate from Competent Authority",
+        "Caste / Community Certificate",
+        "Self-attested previous year marksheet",
+        "Fee receipt of current academic course",
+        "Bank Passbook copy (Account must be in student's name & Aadhaar-seeded)"
+      ]
+    },
+    {
+      "step_number": 4,
+      "step_name": "Institutional & Nodal Officer Verification (L1 & L2)",
+      "workflow": [
+        "L1 Verification: Institute Nodal Officer (INO) verifies student bonafide & fee details",
+        "L2 Verification: District Nodal Officer (DNO) / State Nodal Officer (SNO) verifies income and caste genuineness",
+        "PFMS Merit List Generation & Direct Benefit Transfer to bank account"
+      ]
+    }
+  ],
+  "tracking_url": "https://scholarships.gov.in/portal/loginPage",
+  "helpline": "0120 - 6619540"
+}

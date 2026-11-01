@@ -1,0 +1,35 @@
+{
+  "scheme_name": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)",
+  "official_portal": "https://pmsvanidhi.mohua.gov.in/",
+  "target_beneficiaries": "Urban, semi-urban, and rural street vendors vending in urban areas.",
+  "loan_slabs": {
+    "first_loan": "₹10,000 (1 year repayment tenure)",
+    "second_loan": "₹20,000 (Upon timely repayment of 1st loan)",
+    "third_loan": "₹50,000 (Upon timely repayment of 2nd loan)"
+  },
+  "interest_subsidy": "7% interest subsidy credited directly to vendor's bank account quarterly.",
+  "digital_cashback": "Up to ₹1,200 per year (₹100/month) for receiving payments via QR code.",
+  "step_by_step_workflow": [
+    {
+      "step_number": 1,
+      "step_name": "Vendor Vending Status Check",
+      "options": [
+        "Category A: Vendors possessing Certificate of Vending / ID Card issued by ULB",
+        "Category B: Vendors identified in ULB survey but not issued ID card",
+        "Category C: Vendors left out of ULB survey (Requires Letter of Recommendation - LoR from ULB/Town Vending Committee)",
+        "Category D: Vendors from surrounding rural/peri-urban areas"
+      ]
+    },
+    {
+      "step_number": 2,
+      "step_name": "Loan Application Submission",
+      "portal_action": "Log in with Aadhaar OTP on PM SVANidhi portal or through Lending Institution / CSC. Select preferred lending bank."
+    },
+    {
+      "step_number": 3,
+      "step_name": "Disbursement & Digital QR Onboarding",
+      "action": "Bank sanctions and disburses loan. UPI QR code (BHIM/Paytm/PhonePe/GPay) linked for cashback."
+    }
+  ],
+  "helpline": "1800-11-1979"
+}

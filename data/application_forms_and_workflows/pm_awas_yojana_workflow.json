@@ -1,0 +1,64 @@
+{
+  "scheme_name": "Pradhan Mantri Awas Yojana - Gramin & Urban (PMAY)",
+  "official_portals": {
+    "pmay_gramin": "https://pmayg.nic.in/netiayHome/home.aspx",
+    "pmay_urban": "https://pmay-urban.gov.in/"
+  },
+  "target_beneficiaries": "Homeless families and those living in kutcha/dilapidated houses in rural and urban areas.",
+  "financial_subsidy": "Rural: ₹1,20,000 (Plains) / ₹1,30,000 (Hilly/NE/IAP districts) in 3 installments + ₹12,000 Swachh Bharat toilet grant + 90/95 days MGNREGS wage employment. Urban: Interest subsidy up to ₹2.67 Lakh under CLSS / ₹1.5 Lakh central assistance under BLC (Beneficiary-led Construction).",
+  "application_process_steps": [
+    {
+      "step_number": 1,
+      "step_name": "Gram Sabha / ULB Identification & Registration",
+      "action": "Awaas+ survey registration / Urban demand survey through Urban Local Body (ULB) or online citizen assessment."
+    },
+    {
+      "step_number": 2,
+      "step_name": "AwaasSoft Beneficiary Registration",
+      "fields": [
+        {
+          "name": "aadhaar_number",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "bank_account_dbt",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "family_head_gender",
+          "type": "string",
+          "description": "Preference for female ownership or joint ownership",
+          "mandatory": true
+        },
+        {
+          "name": "current_house_type",
+          "type": "select",
+          "options": [
+            "Kutcha",
+            "Zero-room",
+            "One-room with kutcha roof"
+          ],
+          "mandatory": true
+        },
+        {
+          "name": "land_ownership_document",
+          "type": "file",
+          "mandatory": true
+        }
+      ]
+    },
+    {
+      "step_number": 3,
+      "step_name": "Geo-Tagging & Stage-Wise Fund Release",
+      "stages": [
+        "Stage 1 (Existing Site Geo-tag): Fund release for Foundation (Plinth level)",
+        "Stage 2 (Plinth Level Geo-tag): Fund release for Lintel / Roof level",
+        "Stage 3 (Roof Cast Geo-tag): Final finishing fund release",
+        "Stage 4 (Completed House with SBM Toilet Geo-tag): Handover & Completion Certificate"
+      ]
+    }
+  ],
+  "helpline": "1800-11-6446 (PMAY-G) / 1800-11-3116 (PMAY-U)"
+}
