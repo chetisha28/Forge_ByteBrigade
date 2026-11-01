@@ -106,7 +106,7 @@ class ApplicationService:
             f"Mapped AISHE Code & Course: {draft['form_data'].get('course_name')}...",
             f"Verified Means Threshold: ₹ {draft['form_data'].get('annual_family_income')}...",
             "Controlled Demo: Application fields successfully filled.",
-            "SAFETY GUARDRAIL (Docs/12): Final submission aborted. Application prepared for manual citizen review."
+            "SAFETY GUARDRAIL: Final submission aborted. Application prepared for manual citizen review."
         ]
 
         draft["status"] = "demo_completed"

@@ -1,6 +1,6 @@
 -- ====================================================================
 -- CivicPilot Supabase PostgreSQL Schema & Security Policies
--- Sourced directly from Docs/06_DATA_MODEL.md & Docs/10_DOCUMENT_SECURITY_AND_PRIVACY.md
+-- CivicPilot Supabase Relational & Vector Schema
 -- ====================================================================
 
 -- 1. Enable required extensions

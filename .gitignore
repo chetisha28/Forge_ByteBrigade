@@ -44,3 +44,4 @@ Thumbs.db
 # Uploads directory contents
 backend/uploads/*
 !backend/uploads/.gitkeep
+

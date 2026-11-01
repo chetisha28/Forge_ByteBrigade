@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """CivicPilot Repository Cleanup & Audit Tool
-Complies strictly with Docs/14_CLEANUP_COMMAND.md.
 
 Usage:
     python scripts/cleanup.py           # Default: dry-run
