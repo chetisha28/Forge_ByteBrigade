@@ -1,63 +1,100 @@
 {
   "scheme_name": "Pradhan Mantri Awas Yojana - Gramin & Urban (PMAY)",
-  "official_portals": {
-    "pmay_gramin": "https://pmayg.nic.in/netiayHome/home.aspx",
-    "pmay_urban": "https://pmay-urban.gov.in/"
-  },
+  "official_portal": "https://pmayg.nic.in/netiayHome/home.aspx",
+  "application_mode": "Gram Panchayat Awaas+ Survey (Gramin) / Citizen Assessment Portal (Urban)",
+  "turnaround_time_days": "45-90 days",
   "target_beneficiaries": "Homeless families and those living in kutcha/dilapidated houses in rural and urban areas.",
   "financial_subsidy": "Rural: ₹1,20,000 (Plains) / ₹1,30,000 (Hilly/NE/IAP districts) in 3 installments + ₹12,000 Swachh Bharat toilet grant + 90/95 days MGNREGS wage employment. Urban: Interest subsidy up to ₹2.67 Lakh under CLSS / ₹1.5 Lakh central assistance under BLC (Beneficiary-led Construction).",
-  "application_process_steps": [
+  "prerequisites": [
+    "Aadhaar numbers of all family members",
+    "Clear land possession deed / Gram Panchayat residential patta",
+    "MGNREGA Job Card (for rural wage labor component)",
+    "DBT-enabled Bank Account solely or jointly with female head of household"
+  ],
+  "application_steps": [
     {
       "step_number": 1,
       "step_name": "Gram Sabha / ULB Identification & Registration",
-      "action": "Awaas+ survey registration / Urban demand survey through Urban Local Body (ULB) or online citizen assessment."
-    },
-    {
-      "step_number": 2,
-      "step_name": "AwaasSoft Beneficiary Registration",
-      "fields": [
+      "portal_action": "Awaas+ survey registration / Urban demand survey through Urban Local Body (ULB) or online citizen assessment.",
+      "input_fields": [
         {
           "name": "aadhaar_number",
           "type": "string",
           "mandatory": true
         },
         {
-          "name": "bank_account_dbt",
-          "type": "string",
-          "mandatory": true
-        },
-        {
-          "name": "family_head_gender",
-          "type": "string",
-          "description": "Preference for female ownership or joint ownership",
-          "mandatory": true
-        },
-        {
-          "name": "current_house_type",
+          "name": "head_of_household_gender",
           "type": "select",
-          "options": [
-            "Kutcha",
-            "Zero-room",
-            "One-room with kutcha roof"
-          ],
+          "options": ["Female", "Male", "Joint / Transgender"],
+          "description": "Preference for female or joint ownership",
           "mandatory": true
         },
         {
-          "name": "land_ownership_document",
-          "type": "file",
+          "name": "current_housing_condition",
+          "type": "select",
+          "options": ["Houseless", "Kutcha Wall & Kutcha Roof", "Single-Room Kutcha"],
           "mandatory": true
         }
-      ]
+      ],
+      "verification": "Gram Sabha approves SECC/Awaas+ priority beneficiary list."
+    },
+    {
+      "step_number": 2,
+      "step_name": "AwaasSoft Beneficiary Profile & Bank Seeding",
+      "portal_action": "Data entry on AwaasSoft by Block Development Office / CSC. Link bank account and MGNREGA Job Card.",
+      "input_fields": [
+        {
+          "name": "bank_account_dbt",
+          "type": "string",
+          "description": "Aadhaar seeded bank account in name of female head",
+          "mandatory": true
+        },
+        {
+          "name": "ifsc_code",
+          "type": "string",
+          "mandatory": true
+        },
+        {
+          "name": "mgnrega_job_card_number",
+          "type": "string",
+          "description": "For 90-95 days wage labor grant (₹20,000+)",
+          "mandatory": true
+        },
+        {
+          "name": "land_possession_patta_pdf",
+          "type": "file",
+          "description": "Homestead land allotment or ownership title deed",
+          "mandatory": true
+        }
+      ],
+      "verification": "PFMS account validation and Block Officer sanction order."
     },
     {
       "step_number": 3,
       "step_name": "Geo-Tagging & Stage-Wise Fund Release",
-      "stages": [
-        "Stage 1 (Existing Site Geo-tag): Fund release for Foundation (Plinth level)",
-        "Stage 2 (Plinth Level Geo-tag): Fund release for Lintel / Roof level",
-        "Stage 3 (Roof Cast Geo-tag): Final finishing fund release",
-        "Stage 4 (Completed House with SBM Toilet Geo-tag): Handover & Completion Certificate"
-      ]
+      "portal_action": "Field inspector conducts mobile geo-tagged photography before each installment.",
+      "input_fields": [
+        {
+          "name": "stage_1_foundation",
+          "type": "string",
+          "description": "Geo-tag: Old kutcha site -> 1st Installment (₹40,000) released",
+          "mandatory": true
+        },
+        {
+          "name": "stage_2_lintel",
+          "type": "string",
+          "description": "Geo-tag: Lintel / Wall level -> 2nd Installment (₹60,000) released",
+          "mandatory": true
+        },
+        {
+          "name": "stage_3_roof_and_toilet",
+          "type": "string",
+          "description": "Geo-tag: Roof cast + Swachh Bharat toilet -> Final Installment (₹20,000) released",
+          "mandatory": true
+        }
+      ],
+      "verification": "AwaasApp mobile geo-tag inspection with GPS latitude/longitude verification.",
+      "output_artifact": "Completion Certificate and house handover plaque with PMAY logo."
     }
   ],
   "helpline": "1800-11-6446 (PMAY-G) / 1800-11-3116 (PMAY-U)"
